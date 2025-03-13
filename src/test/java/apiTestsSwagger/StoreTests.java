@@ -7,8 +7,7 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 import routs.Endpoints;
 
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class StoreTests {
 
@@ -18,7 +17,7 @@ public class StoreTests {
     static final int QUANTITY = 5;
     static final String STATUS = "placed";
     static final boolean COMPLETE = true;
-    static final String NULL_PARAM = " ";
+    static final String INVALID_BODY = "{invalidJson}";
 
     private final RestHelper restHelper = new RestHelper();
     private final SoftAssertions softAssertions = new SoftAssertions();
@@ -29,7 +28,7 @@ public class StoreTests {
                 .id(VALID_ORDER_ID)
                 .petId(PET_ID)
                 .quantity(QUANTITY)
-                .orderDate(Date.from(Instant.now()))
+                .orderDate(LocalDateTime.now())
                 .status(STATUS)
                 .complete(COMPLETE)
                 .build();
@@ -108,7 +107,7 @@ public class StoreTests {
 
     @Test
     public void testPostStoreOrderWithNoBody() {
-        Response postResponse = restHelper.sendPostRequest(Endpoints.STORE_ORDER, NULL_PARAM);
+        Response postResponse = restHelper.sendPostRequest(Endpoints.STORE_ORDER, INVALID_BODY);
         softAssertions.assertThat(postResponse.getStatusCode())
                 .as("Assert status-code is 400")
                 .isEqualTo(400);

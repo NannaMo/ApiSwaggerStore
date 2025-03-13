@@ -1,12 +1,12 @@
 package dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class PetBuilder {
     private Integer id = 1;
     private Integer petId = 1001;
     private Integer quantity = 1;
-    private Date orderDate = new Date();
+    private LocalDateTime orderDate = LocalDateTime.now();
     private String status = "available";
     private Boolean complete = false;
 
@@ -25,7 +25,7 @@ public class PetBuilder {
         return this;
     }
 
-    public PetBuilder withOrderDate(Date orderDate) {
+    public PetBuilder withOrderDate(LocalDateTime  orderDate) {
         this.orderDate = orderDate;
         return this;
     }
